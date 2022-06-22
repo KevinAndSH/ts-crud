@@ -1,10 +1,10 @@
-name: "Deployment pipeline"
+name: Deployment pipeline
 
 on:
   push:
     branches:
-      - "master"
-      - "main"
+      - master
+      - main
 
 jobs:
   deploy:
