@@ -3,4 +3,12 @@ name: Test
 on:
   push:
     branches:
-      - ""
+      - master
+      - main
+
+jobs:
+  hello:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Echo something because why not
+        run: echo "Hello World"
