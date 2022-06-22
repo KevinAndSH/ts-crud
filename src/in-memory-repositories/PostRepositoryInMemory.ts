@@ -48,7 +48,7 @@ export default class PostRepositoryInMemory implements PostRepository {
   }
 
   async findAll(): Promise<Post[]> {
-    return Promise.resolve([])
+    return Promise.resolve(this.inMemoryDB)
   }
 
   async findPostById(id: string): Promise<Post|null> {

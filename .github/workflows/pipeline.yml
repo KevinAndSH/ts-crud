@@ -26,4 +26,3 @@ jobs:
         
       - name: Test our project
         run: npm test
-
