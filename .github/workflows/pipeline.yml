@@ -1,0 +1,23 @@
+name: "Deployment pipeline"
+
+on:
+  push:
+    branches:
+      - "master"
+      - "main"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm i
+      - name: Test our project
+        run: npm test
+
