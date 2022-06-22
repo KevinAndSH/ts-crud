@@ -12,3 +12,5 @@ jobs:
     steps:
       - name: Echo something because why not
         run: echo "Hello World"
+      - name: Gimme the date
+        run: date
