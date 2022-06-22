@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node api",
+    "start": "NODE_ENV=production node dist",
     "dev": "NODE_ENV=development nodemon -r dotenv/config src/index.ts",
     "build": "tsc",
     "test": "NODE_ENV=test mocha --check-leaks -r ts-node/register \"**/*.test.ts\""

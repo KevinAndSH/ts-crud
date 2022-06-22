@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  first:
+  "first_job":
     runs-on: ubuntu-20.04
     steps:
       - name: Echo something because why not
