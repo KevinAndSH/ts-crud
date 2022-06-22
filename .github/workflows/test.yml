@@ -1,4 +1,4 @@
-name: Test
+name: "My workflow"
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  hello:
+  first:
     runs-on: ubuntu-20.04
     steps:
       - name: Echo something because why not

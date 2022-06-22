@@ -25,12 +25,41 @@ describe("GET /posts", async () => {
     const posts: Post[] = res.body.data
     expect(posts).to.be.an("array")
   })
+
+  it("should return previously saved posts", async () => {
+    const newPost1 = createMockPost()
+    const newPost2 = createMockPost()
+
+    const res1 = await api
+      .post("/posts")
+      .send(newPost1)
+      .expect(201)
+    
+    const res2 = await api
+      .post("/posts")
+      .send(newPost2)
+      .expect(201)
+
+    const savedPost1 = res1.body.data
+    const savedPost2 = res2.body.data
+
+    const res3 = await api
+      .get("/posts")
+      .expect(200)
+
+    const sentPosts = res3.body.data
+    const sentPost1 = sentPosts.at(-2)
+    const sentPost2 = sentPosts.at(-1)
+
+    expect(sentPost1).to.deep.equal(savedPost1)
+    expect(sentPost2).to.deep.equal(savedPost2)
+  })
 })
 
 describe("POST /posts", async () => {
-  const newPost = createMockPost()
-
   it("should save a post", async () => {
+    const newPost = createMockPost()
+    
     const res = await api
       .post("/posts")
       .send(newPost)
@@ -42,15 +71,22 @@ describe("POST /posts", async () => {
   })
 
   it("should send the post saved before", async () => {
+    const newPost = createMockPost()
+
+    await api
+      .post("/posts")
+      .send(newPost)
+      .expect(201)
+
     const res = await api
       .get("/posts")
       .expect("Content-Type", /json/)
       .expect(200)
 
     const savedPosts: Post[] = res.body.data
-    expect(savedPosts).to.have.a.lengthOf(1)
+    expect(savedPosts).to.have.length.of.at.least(1)
 
-    const { content, username } = savedPosts[0]
+    const { content, username } = savedPosts.at(-1) as Post
     expect({ content, username }).to.deep.equal(newPost)
   })
 
