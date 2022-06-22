@@ -1,0 +1,3 @@
+{
+  "ignore": ["./src/in-memory-repositories/json-backup/*"]
+}
