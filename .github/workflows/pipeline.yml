@@ -19,8 +19,16 @@ jobs:
   lint:
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - name: Perform linting
-        run: echo "npm run lint"
+        run: npm run lint
 
   build:
     runs-on: ubuntu-20.04
@@ -71,8 +79,24 @@ jobs:
     needs: [lint, build]
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm ci
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+
       - name: Perform e2e tests
-      - run: echo "npm run e2e"
+      - run: npm run e2e
 
   deploy:
     needs: [test, e2e]
