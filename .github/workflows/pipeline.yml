@@ -75,5 +75,5 @@ jobs:
           path: dist
 
       - name: Deploy to some platform
-        if: ${{ github.event_name == "push" }}
+        if: ${{ github.event_name == 'push' }}
         run: echo "Deployed!"
