@@ -16,6 +16,12 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
+  lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Perform linting
+        run: echo "npm run lint"
+
   build:
     runs-on: ubuntu-20.04
     steps:
@@ -39,7 +45,7 @@ jobs:
           path: dist
 
   test:
-    needs: [build]
+    needs: [lint, build]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -61,8 +67,15 @@ jobs:
       - name: Test our project
         run: npm test
 
+  e2e:
+    needs: [lint, build]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Perform e2e tests
+      - run: echo "npm run e2e"
+
   deploy:
-    needs: [test]
+    needs: [test, e2e]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
