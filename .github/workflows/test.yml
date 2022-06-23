@@ -2,12 +2,10 @@ name: My workflow
 
 on:
   push:
-    branches:
-      - master
-      - main
+    branches: [master]
 
 jobs:
-  "first_job":
+  first_job:
     runs-on: ubuntu-20.04
     steps:
       - name: Echo something because why not
